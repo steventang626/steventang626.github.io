@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Design,Stack," />
+  <meta name="keywords" content="Design,Stack,Java," />
 
 
 
@@ -84,16 +84,21 @@
 
 
 
-<meta name="description" content="Welcome to Yuhan Tang’s Blog!">
+<meta name="description" content="This is my first technical blog and I would like to share my design and implementation of an iterator which aims to flatten a nested list of integer.
+Original ProblemThe original algorithm problem is">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dynamic Flattening Nested List Iterator Design and Implementation">
 <meta property="og:url" content="http://yoursite.com/2019/01/18/NestedIterator/index.html">
 <meta property="og:site_name" content="Yuhan Tang's Blog">
-<meta property="og:description" content="Welcome to Yuhan Tang’s Blog!">
-<meta property="og:updated_time" content="2019-01-18T08:56:30.459Z">
+<meta property="og:description" content="This is my first technical blog and I would like to share my design and implementation of an iterator which aims to flatten a nested list of integer.
+Original ProblemThe original algorithm problem is">
+<meta property="og:image" content="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/01/blog-01-01.png">
+<meta property="og:updated_time" content="2019-01-22T07:57:39.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamic Flattening Nested List Iterator Design and Implementation">
-<meta name="twitter:description" content="Welcome to Yuhan Tang’s Blog!">
+<meta name="twitter:description" content="This is my first technical blog and I would like to share my design and implementation of an iterator which aims to flatten a nested list of integer.
+Original ProblemThe original algorithm problem is">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/01/blog-01-01.png">
 
 
 
@@ -322,7 +327,20 @@
       
 
       
-        <h3 id="Welcome-to-Yuhan-Tang’s-Blog"><a href="#Welcome-to-Yuhan-Tang’s-Blog" class="headerlink" title="Welcome to Yuhan Tang’s Blog!"></a>Welcome to Yuhan Tang’s Blog!</h3>
+        <p>This is my first technical blog and I would like to share my design and implementation of an iterator which aims to flatten a nested list of integer.</p>
+<h3 id="Original-Problem"><a href="#Original-Problem" class="headerlink" title="Original Problem"></a>Original Problem</h3><p>The original algorithm problem is called <strong><em>Flatten Nested List Iterator</em></strong> from <a href="https://leetcode.com" target="_blank" rel="external">LeetCode</a>. You can get the description and Examples of this problem <a href="https://leetcode.com/problems/flatten-nested-list-iterator/description/" target="_blank" rel="external">here</a>.</p>
+<p><img src="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/01/blog-01-01.png" alt="blog-01-01"></p>
+<p>I choose to use a <strong>stack</strong> to store the elements from the NestedInteger list because the elements in a stack are “First In, Last Out.” (FILO), so if we push the elements of the list from last to first to the stack, the first element can be pop out of the stack first. In the constructor function, I initiate a new stack and push the elements of the NestedInteger list from back to front.</p>
+<p>Then, we need to design the <code>next()</code> and <code>hasNext()</code> functions. In the <code>hasNext()</code> function, we need to find if the iteration has more elements. The element needs to be a <strong>real integer</strong>, which means an empty nested list does not count. If the stack is empty, we can easily return <code>false</code> as a result. Then we can get and check if the peek element is a single integer. If yes, we can return <code>true</code> as the result because we find one element that has not been iterated. If no, which means the peek element of the stack is a nested list, we can pop the list from the stack and push all the elements of the list to the stack from back to front and do the entire checking process again. The terminating condition is that the stack is empty and then we return <code>false</code>.</p>
+<p>The  <code>next()</code> function is easy to implement when we have the  <code>hasNext()</code> function. As every time we call the <code>hasNext()</code> function before the <code>next()</code> function, we can assume that when we enter the <code>next()</code> function, there must be one or more elements left and <strong>the peek of the stack is a single integer</strong>. Then, we just need to pop the peek element and return the integer as a result.</p>
+<p>The code is as shown below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">NestedInteger</span> </span>&#123;</div><div class="line">    <span class="comment">// @return true if this NestedInteger holds a single integer, rather than a nested list.</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isInteger</span><span class="params">()</span></span>;</div><div class="line">    <span class="comment">// @return the single integer that this NestedInteger holds, if it holds a single integer</span></div><div class="line">    <span class="comment">// Return null if this NestedInteger holds a nested list</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getInteger</span><span class="params">()</span></span>;</div><div class="line">    <span class="comment">// @return the nested list that this NestedInteger holds, if it holds a nested list</span></div><div class="line">    <span class="comment">// Return null if this NestedInteger holds a single integer</span></div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;NestedInteger&gt; <span class="title">getList</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NestedIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</div><div class="line">    <span class="keyword">private</span> Stack&lt;NestedInteger&gt; stack;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NestedIterator</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> </span>&#123;</div><div class="line">        stack = <span class="keyword">new</span> Stack&lt;&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = nestedList.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">            stack.push(nestedList.get(i));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> stack.pop().getInteger();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span>(!stack.empty()) &#123;</div><div class="line">            NestedInteger top = stack.peek();</div><div class="line">            <span class="keyword">if</span>(top.isInteger()) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            stack.pop();</div><div class="line">            List&lt;NestedInteger&gt; list = top.getList();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = list.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">                stack.push(list.get(i));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Although this version of code can pass the LeetCode online judge (OJ) system. It is not a perfect solution. It is correct because in the OJ, the  <code>next()</code> and <code>hasNext()</code> functions are called in this way:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Your NestedIterator object will be instantiated and called as such:</span></div><div class="line">NestedIterator i = <span class="keyword">new</span> NestedIterator(nestedList);</div><div class="line"><span class="keyword">while</span> (i.hasNext()) v[f()] = i.next();</div></pre></td></tr></table></figure>
+<h3 id="Improvement"><a href="#Improvement" class="headerlink" title="Improvement"></a>Improvement</h3><p>However, if the original list is [[1, 2], 3], and we calls  <code>next()</code>  without calling  <code>hasNext()</code>, the function will return null but we expect to get 1 as the result. In the real usage scenario, we usually can not ensure every  <code>next()</code>  is called after a <code>hasNext()</code> function. To fix this problem, we can check if the iteration has more elements using  <code>hasNext()</code>, and if false, we need to throw out an exception. I use <em>NoSuchElementException</em>, the same as the native iterator.</p>
+<p>The improved  <code>next()</code> function is as shown below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!hasNext()) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> stack.pop().getInteger();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -347,6 +365,8 @@
             <a href="/tags/Design/" rel="tag">#Design</a>
           
             <a href="/tags/Stack/" rel="tag">#Stack</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
           
         </div>
       
@@ -439,7 +459,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -493,7 +513,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Welcome-to-Yuhan-Tang’s-Blog"><span class="nav-number">1.</span> <span class="nav-text">Welcome to Yuhan Tang’s Blog!</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Original-Problem"><span class="nav-number">1.</span> <span class="nav-text">Original Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Improvement"><span class="nav-number">2.</span> <span class="nav-text">Improvement</span></a></li></ol></div>
             
           </div>
         </section>
