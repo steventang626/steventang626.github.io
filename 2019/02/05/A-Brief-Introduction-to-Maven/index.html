@@ -1,0 +1,774 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Java,Maven,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="I have been using Java for coding for over three years, but I just started exploring Maven from last week. Although I knew Maven would be useful, I usually ignored it because I thought using Maven wou">
+<meta name="keywords" content="Java,Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Brief Introduction to Maven">
+<meta property="og:url" content="http://yoursite.com/2019/02/05/A-Brief-Introduction-to-Maven/index.html">
+<meta property="og:site_name" content="Yuhan Tang&#39;s Blog">
+<meta property="og:description" content="I have been using Java for coding for over three years, but I just started exploring Maven from last week. Although I knew Maven would be useful, I usually ignored it because I thought using Maven wou">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/02/blog-02-01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/02/blog-02-02.png">
+<meta property="og:updated_time" content="2019-02-05T21:54:23.980Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Brief Introduction to Maven">
+<meta name="twitter:description" content="I have been using Java for coding for over three years, but I just started exploring Maven from last week. Although I knew Maven would be useful, I usually ignored it because I thought using Maven wou">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/02/blog-02-01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/05/A-Brief-Introduction-to-Maven/">
+
+  <title> A Brief Introduction to Maven | Yuhan Tang's Blog </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-133187329-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yuhan Tang's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Stay Hungry. Stay Foolish.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                A Brief Introduction to Maven
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2019-02-05T10:54:17-08:00" content="2019-02-05">
+              2019-02-05
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope="" itemtype="https://schema.org/Thing">
+                  <a href="/categories/Developmemt/" itemprop="url" rel="index">
+                    <span itemprop="name">Developmemt</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/02/05/A-Brief-Introduction-to-Maven/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/05/A-Brief-Introduction-to-Maven/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>I have been using Java for coding for over three years, but I just started exploring Maven from last week. Although I knew Maven would be useful, I usually ignored it because I thought using Maven would add up the complexity and I need to learn how to use it first. But actually, it is not as hard as I thought. So I am writing this blog to share the usage of Maven to whom may have similar thought as I was.</p>
+<a id="more"></a>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p><a href="https://maven.apache.org" target="_blank" rel="noopener">Apache Maven</a> is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project’s build, reporting and documentation from a central piece of information.</p>
+<p><img src="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/02/blog-02-01.png" alt="blog-02-01"></p>
+<p>Maven’s primary goal is to allow a developer to comprehend the complete state of a development effort in the shortest period of time. In order to attain this goal there are several areas of concern that Maven attempts to deal with:</p>
+<ul>
+<li>Making the build process easy</li>
+<li>Providing a uniform build system</li>
+<li>Providing quality project information</li>
+<li>Providing guidelines for best practices development</li>
+<li>Allowing transparent migration to new features</li>
+</ul>
+<p>Actually, the real purpose of using Maven for the first time is most likely that <strong>Maven can help the developer to specify the project’s dependencies, instead of importing JAR files manually</strong>. </p>
+<p>The main file we need to use for Maven is the <code>pom.xml</code> file. We can add dependencies, plugins or other settings in it. If you are familiar with Node.js or Django, it is very similar to <code>package.json</code> or <code>requirements.txt</code>. Next, we will download and explore the basic usage of Maven together.</p>
+<h3 id="Installing"><a href="#Installing" class="headerlink" title="Installing"></a>Installing</h3><p>Refer to Maven <a href="https://maven.apache.org/install.html" target="_blank" rel="noopener">installation page</a>, the steps you need to do in a macOS system are:</p>
+<ol>
+<li><p>Ensure <code>JAVA_HOME</code> environment variable is set and points to your JDK installation.</p>
+<p>You can check your environment variable settings using this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>If you have a line in it like the following, you can go to step 2. If not you can add this line to the <code>.bash_profile</code> file. (You may need to change the JDK verision to your local version)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
+<p>You can also use this command to check if you have successfully added to the settings.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br><span class="line">/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Download the latest version of the Maven binary zip archive (bin.zip) from the <a href="https://maven.apache.org/download.cgi" target="_blank" rel="noopener">download site</a> and extract it in any directory.</p>
+</li>
+<li><p>Move to the folder to the directory we like. For me, I put it under the home directory. Then, add the <code>bin</code> directory of it to the <code>PATH</code> environment variable.</p>
+<p>You can use the similar way in step 1 and add this line to the <code>.bash_profile</code> file. Replace <code>/opt</code> with the directory where you put the Maven folder.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/opt/apache-maven-3.6.0/bin</span><br></pre></td></tr></table></figure>
+<p>For me, the line is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/Users/steven/apache-maven-3.6.0/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Confirm the installation in a new shell. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mvn --version</span><br><span class="line">or</span><br><span class="line">$ mvn -v</span><br></pre></td></tr></table></figure>
+<p>The result should look similar to:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Apache Maven 3.6.0 (97c98ec64a1fdfee7767ce5ffb20918da4f719f3; 2018-10-24T11:41:47-07:00)</span><br><span class="line">Maven home: /Users/steven/apache-maven-3.6.0</span><br><span class="line">Java version: 1.8.0_181, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre</span><br><span class="line">Default locale: zh_CN, platform encoding: UTF-8</span><br><span class="line">OS name: <span class="string">"mac os x"</span>, version: <span class="string">"10.14.4"</span>, arch: <span class="string">"x86_64"</span>, family: <span class="string">"mac"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Creating-a-Project"><a href="#Creating-a-Project" class="headerlink" title="Creating a Project"></a>Creating a Project</h3><h4 id="Project-Generation"><a href="#Project-Generation" class="headerlink" title="Project Generation"></a>Project Generation</h4><p>Maven provide a way to create a demo project quickly. You can just go to a directory, start a shell in it and run this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>It will automatically generate a directory named <code>my-app</code> and the standard project structure is:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">my-app</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   └── java</span><br><span class="line">    │       └── com</span><br><span class="line">    │           └── mycompany</span><br><span class="line">    │               └── app</span><br><span class="line">    │                   └── App.java</span><br><span class="line">    └── test</span><br><span class="line">        └── java</span><br><span class="line">            └── com</span><br><span class="line">                └── mycompany</span><br><span class="line">                    └── app</span><br><span class="line">                        └── AppTest.java</span><br></pre></td></tr></table></figure>
+<p>The <code>src/main/java</code> directory contains the project source code, the <code>src/test/java</code> directory contains the test source, and the <code>pom.xml</code> file is the project’s Project Object Model.</p>
+<h4 id="The-POM"><a href="#The-POM" class="headerlink" title="The POM"></a>The POM</h4><p>The <code>pom.xml</code> file is the core of a project’s configuration in Maven. We do not need to understand every line of this, so do not be panic. This project’s POM is:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mycompany.app<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>my-app<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>my-app<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>The first section of the project defines a <strong>groupId</strong>, <strong>artifactId</strong>, <strong>packaging</strong>, and <strong>version</strong>. Their simple explanations are:</p>
+<ul>
+<li><p><strong>groupId</strong></p>
+<p>Used to uniquely identify this project across all projects.</p>
+</li>
+<li><p><strong>artifactId</strong></p>
+<p> It is the name of the jar without version.</p>
+</li>
+<li><p><strong>version</strong></p>
+<p>The version of the package being built.</p>
+</li>
+</ul>
+<p>The next section defines the <code>dependencies</code> this project depends on. We can see that this project just have one dependency <code>JUnit</code> which is a unit testing framework. Each dependency is referred to by its <strong>groupId</strong>, <strong>artifactId</strong>, and <strong>version</strong>.</p>
+<h4 id="Build-the-Project"><a href="#Build-the-Project" class="headerlink" title="Build the Project"></a>Build the Project</h4><p>Run this Maven command (in the root directory):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn package</span><br></pre></td></tr></table></figure>
+<p>It will build the project and then you can run the newly compiled and packaged JAR with this command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App</span><br></pre></td></tr></table></figure>
+<p><code>-cp</code> means CLASSPATH. It is used to specify the location of classes and packages.</p>
+<p>And we will get this as the output:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+<p>Congratulations! You have built and ran your first Maven project.</p>
+<h3 id="Search-and-Add-Dependencies"><a href="#Search-and-Add-Dependencies" class="headerlink" title="Search and Add Dependencies"></a>Search and Add Dependencies</h3><p>All we need to do to add a dependency is writing some lines in the <code>pom.xml</code> file.</p>
+<p>For example, we will search and add <strong>Apache Commons Lang</strong> to the project. Apache Commons Lang provides a lot of classes for manipulation of Java’s core classes.</p>
+<p>The steps are:</p>
+<ol>
+<li><p>Visit <a href="https://mvnrepository.com/" target="_blank" rel="noopener">Maven Repository</a></p>
+</li>
+<li><p>Type “apache commons lang” in the search box which has the placeholder “Search for groups, artifacts or categories”</p>
+</li>
+<li><p>Click the first result and the newest version in it, and you will see like this:</p>
+<p><img src="https://raw.githubusercontent.com/steventang626/Markdown-Photos/master/Photos/Blogs/02/blog-02-02.png" alt="blog-02-02"></p>
+</li>
+<li><p>Copy the dependency tag part and paste to your <code>pom.xml</code>, e.g.:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Then, you can use Apache Commons Lang in your project.</p>
+<p>A simple usage of <code>StringUtils</code> class provided in Apache Commons Lang :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String prefix = <span class="string">"yuhan"</span>;</span><br><span class="line">String string = <span class="string">"Yuhan's blog is useful."</span>;</span><br><span class="line">System.out.println(StringUtils.startsWithIgnoreCase(string, prefix));</span><br></pre></td></tr></table></figure>
+<p>You can use the <code>StringUtils</code> class with importing:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Other useful tools for Java development includes <code>CheckStyle</code>, <code>FindBugs</code>, and <code>JUnit</code>, etc. Maybe we will discuss these tools in my other blogs.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this blog, I briefly introduce Maven and the basic usage of it. It is quite an easy way to manage the project dependencies especially we have a lot of libraries to use. If you meet any problem following the steps or you have any comment, do not hesitate to reach me or write a comment under this blog. </p>
+<p>The source code of this blog is in my GitHub repository and the link is <a href="https://github.com/steventang626/Technical-Blog/tree/master/02-Maven-Introduction" target="_blank" rel="noopener">here</a>. </p>
+<p>Thank you for your patience and see you next time. </p>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="https://maven.apache.org/" target="_blank" rel="noopener">Apache Maven Home Page</a></li>
+<li><a href="https://maven.apache.org/download.cgi" target="_blank" rel="noopener">Maven Download</a></li>
+<li><a href="https://maven.apache.org/install.html" target="_blank" rel="noopener">Maven Install</a></li>
+<li><a href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank" rel="noopener">Maven in 5 Minutes</a></li>
+<li><a href="https://mvnrepository.com" target="_blank" rel="noopener">Maven Repository</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/Maven/" rel="tag">#Maven</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/18/How-to-Design-a-Dynamic-Iterator-to-Flatten-a-Nested-List/" rel="next" title="How to Design a Dynamic Iterator to Flatten a Nested List?">
+                <i class="fa fa-chevron-left"></i> How to Design a Dynamic Iterator to Flatten a Nested List?
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/head.jpg" alt="Yuhan Tang">
+          <p class="site-author-name" itemprop="name">Yuhan Tang</p>
+          <p class="site-description motion-element" itemprop="description">This is Yuhan Tang's technical blog.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/steventang626" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.linkedin.com/in/yuhan-tang" title="LinkedIn" target="_blank">LinkedIn</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Installing"><span class="nav-number">2.</span> <span class="nav-text">Installing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-a-Project"><span class="nav-number">3.</span> <span class="nav-text">Creating a Project</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Project-Generation"><span class="nav-number">3.1.</span> <span class="nav-text">Project Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-POM"><span class="nav-number">3.2.</span> <span class="nav-text">The POM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Build-the-Project"><span class="nav-number">3.3.</span> <span class="nav-text">Build the Project</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-and-Add-Dependencies"><span class="nav-number">4.</span> <span class="nav-text">Search and Add Dependencies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">5.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">6.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuhan Tang</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'yuhan-tang-blog';
+      var disqus_identifier = '2019/02/05/A-Brief-Introduction-to-Maven/';
+      var disqus_title = "A Brief Introduction to Maven";
+      var disqus_url = 'http://yoursite.com/2019/02/05/A-Brief-Introduction-to-Maven/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
